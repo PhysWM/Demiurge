@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Demiurge: Forging Navigable 4D Worlds via Autoregressive Video Rerendering">
+  <meta name="keywords" content="Demiurge, 4D world generation, video rerendering, video diffusion">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Demiurge: Forging Navigable 4D Worlds via Autoregressive Video Rerendering</title>
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" type="image/jpeg" href="./ours/images/logo.jpg">
+
+  <script defer src="./static/js/bulma-carousel.min.js"></script>
+  <script defer src="./static/js/index.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="reading-progress" aria-hidden="true"><span></span></div>
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="site-nav-inner">
+    <a class="site-brand" href="#overview" aria-label="Demiurge, back to overview">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>Demiurge</span>
+    </a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#comparisons">Comparisons</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#ablations">Ablations</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main-content">
+<section id="overview" class="hero project-hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <div class="hero-kicker">Navigable 4D World Generation</div>
+          <h1 class="title is-1 publication-title"><span class="title-accent">Demiurge</span>: Forging Navigable 4D Worlds via Autoregressive Video Rerendering</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Anonymous Authors</span>
+          </div>
+          <p class="hero-summary">Autoregressive video rerendering with a shared 4D memory for coherent, navigable world construction.</p>
+          <div class="hero-pills" aria-label="Key properties">
+            <span>Cross-trajectory consistency</span>
+            <span>Large-parallax rerendering</span>
+            <span>Geometry-faithful outputs</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser overview-figure" aria-label="Concept overview">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="teaser-figure surface-card">
+        <img src="./ours/images/FIG1.png" fetchpriority="high" decoding="async"
+             alt="Comparison of existing video rendering methods and the proposed Demiurge autoregressive video rerendering method.">
+        <figcaption class="figure-caption">
+          <strong>Comparison of our proposed method with existing methods.</strong>
+          <strong>(a)</strong> Existing methods independently synthesize videos along different target trajectories, resulting in cross-trajectory inconsistencies and only isolated 2D cross-view videos.
+          <strong>(b)</strong> In contrast, Demiurge autoregressively generates each trajectory with a shared 4D memory cache, maintaining cross-trajectory consistency and thereby enabling coherent 4D world construction.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<section id="highlights" class="section highlights-section" aria-labelledby="highlights-title">
+  <div class="container is-fluid results-container">
+    <div class="section-heading has-text-centered">
+      <span class="section-eyebrow">Selected results</span>
+      <h2 id="highlights-title" class="title is-3">Explore Generated Worlds</h2>
+      <p>Browse representative trajectories. Videos load efficiently and pause when they leave the viewport.</p>
+    </div>
+    <div class="highlight-shell">
+      <div id="results-carousel" class="carousel results-carousel" aria-label="Selected video results">
+        <div class="item item-teaser-1">
+          <video id="teaser-1" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser-2">
+          <video id="teaser-2" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser-3">
+          <video id="teaser-3" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/8.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser-4">
+          <video id="teaser-4" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser-5">
+          <video id="teaser-5" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser-6">
+          <video id="teaser-6" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/6.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser-7">
+          <video id="teaser-7" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser">
+          <video class="teaser-video" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/7.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser">
+          <video class="teaser-video" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/9.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-teaser">
+          <video class="teaser-video" controls muted loop playsinline height="100%">
+            <source src="./ours/videos/teaser_videos/10.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="abstract" class="section content-section" aria-labelledby="abstract-title">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="section-heading">
+          <span class="section-eyebrow">In brief</span>
+          <h2 id="abstract-title" class="title is-3">Abstract</h2>
+        </div>
+        <div class="content abstract-copy">
+          <p>
+            Recent advancements in video diffusion models have substantially empowered generative video rerendering, where novel-view videos can be synthesized from a single input video, facilitating a broad spectrum of applications such as world modeling, embodied intelligence, and robotic simulation. However, despite their impressive photorealism, existing video rerendering methods typically treat each camera trajectory in isolation, lacking the cross-trajectory consistency required to form a coherent and traversable 4D world. To address this limitation, we introduce <strong><em>Demiurge</em></strong>, a novel autoregressive video rerendering pipeline for navigable 4D world generation.
+          </p>
+          <p>
+            Built upon a dynamic 4D point-cloud memory cache, Demiurge promotes cross-trajectory consistency through <strong>four key components:</strong> <strong>1)</strong> an appearance video diffusion model that rerenders photorealistic novel-view videos along target camera trajectories conditioned on the 4D cache; <strong>2)</strong> a cache-consistent video depth completion model that aligns known-region depths with cached geometry while completing missing regions, mitigating scale ambiguity and discontinuities during cache updates; <strong>3)</strong> a memory-aware dual-stream warping strategy that provides high-fidelity visual guidance and occlusion cues for plausible novel-view video synthesis; <strong>4)</strong> a geometry-aware video refinement model that further enhances the perceptual quality of synthesized videos.
+          </p>
+          <p>
+            Extensive experiments show that Demiurge achieves state-of-the-art performance with <strong>three key capabilities:</strong> <strong>1)</strong> coherent spatiotemporal lattice construction over dense multi-view trajectories; <strong>2)</strong> large-parallax video rerendering under challenging camera motions, such as 180&deg; rotations with no input-view overlap; <strong>3)</strong> geometry-faithful outputs that can be directly optimized into high-quality 3D Gaussian Splatting representations with minimal artifacts.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Method. -->
+    <div id="method" class="columns is-centered has-text-centered method-section" aria-labelledby="method-title">
+      <div class="column is-full-width">
+        <div class="section-heading">
+          <span class="section-eyebrow">How it works</span>
+          <h2 id="method-title" class="title is-3">Method</h2>
+        </div>
+        <figure class="method-figure surface-card">
+          <img src="./ours/images/FIG2.png" loading="lazy" decoding="async"
+               alt="Overview of the Demiurge autoregressive video rerendering pipeline.">
+          <figcaption class="method-caption">
+            <strong>Overview of Demiurge.</strong> Demiurge performs autoregressive video rerendering with an evolving 4D point-cloud memory through a <strong>generate&ndash;recover&ndash;update cycle</strong>. By integrating dual-stream warping, appearance generation, depth completion, and optional refinement, it enables coherent 4D world construction, large-parallax rerendering, and geometry-faithful 3D/4D reconstruction.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <!--/ Method. -->
+  </div>
+</section>
+
+<section id="comparisons" class="section experiments-section" aria-labelledby="comparisons-title">
+  <div class="container is-fluid experiments-container">
+    <div class="section-heading has-text-centered experiments-heading">
+      <span class="section-eyebrow">Quantitative insight, visual evidence</span>
+      <h2 id="comparisons-title" class="title is-3">State-of-the-Art Comparisons</h2>
+      <p>Compare the input, prior work, and our rerendered output side by side. Use the group controls to inspect each case in sync.</p>
+    </div>
+
+    <div class="comparison-grid">
+      <figure class="comparison-item comparison-item-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Trajcrafter/input_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item">
+        <figcaption class="comparison-label">TrajCrafter</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Trajcrafter/Trajcrafter.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item comparison-item-ours">
+        <figcaption class="comparison-label">Ours</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Trajcrafter/Ours.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+
+    <div class="comparison-grid comparison-grid-secondary">
+      <figure class="comparison-item comparison-item-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_InspatioWorld/input_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item">
+        <figcaption class="comparison-label">InSpatioWorld</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_InspatioWorld/InspatioWorld.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item comparison-item-ours">
+        <figcaption class="comparison-label">Ours</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_InspatioWorld/ours.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+
+    <div class="comparison-grid comparison-grid-secondary">
+      <figure class="comparison-item comparison-item-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_ReCamMaster/input_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item">
+        <figcaption class="comparison-label">ReCamMaster</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_ReCamMaster/ReCamMaster.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item comparison-item-ours">
+        <figcaption class="comparison-label">Ours</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_ReCamMaster/ours.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+
+    <div class="comparison-grid comparison-grid-secondary">
+      <figure class="comparison-item comparison-item-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Gen3C/input_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item">
+        <figcaption class="comparison-label">Gen3C</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Gen3C/Gen3C.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item comparison-item-ours">
+        <figcaption class="comparison-label">Ours</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Gen3C/ours.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+
+    <div class="comparison-grid comparison-grid-secondary">
+      <figure class="comparison-item comparison-item-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Spatia/input_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item">
+        <figcaption class="comparison-label">Spatia</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Spatia/Spatia.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item comparison-item-ours">
+        <figcaption class="comparison-label">Ours</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Spatia/ours.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+
+    <div class="comparison-grid comparison-grid-secondary">
+      <figure class="comparison-item comparison-item-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Voyager/input_video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item">
+        <figcaption class="comparison-label">Voyager</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Voyager/voyager.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+
+      <figure class="comparison-item comparison-item-ours">
+        <figcaption class="comparison-label">Ours</figcaption>
+        <div class="comparison-video-frame">
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Comparisons/Ours_Voyager/ours.mp4" type="video/mp4">
+          </video>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities" class="section capabilities-section" aria-labelledby="capabilities-title">
+  <div class="container is-max-desktop">
+    <div class="section-heading has-text-centered">
+      <span class="section-eyebrow">What Demiurge enables</span>
+      <h2 id="capabilities-title" class="title is-3">Key Capabilities</h2>
+    </div>
+    <div class="has-text-centered">
+      <h3 class="title is-4">Coherent Spatiotemporal Lattice Generation</h3>
+    </div>
+
+    <div id="capability-carousel" class="carousel capability-carousel">
+      <div class="item">
+        <figure class="capability-case">
+          <figcaption class="capability-case-label">Case 1</figcaption>
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Key%20Capabilities/Coherent%20Spatiotemporal%20Lattice%20Generation/1.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+
+      <div class="item">
+        <figure class="capability-case">
+          <figcaption class="capability-case-label">Case 2</figcaption>
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Key%20Capabilities/Coherent%20Spatiotemporal%20Lattice%20Generation/2.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="large-parallax" class="section capabilities-section capability-detail" aria-labelledby="large-parallax-title">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h3 id="large-parallax-title" class="title is-4">Large-Parallax Video Rerendering</h3>
+    </div>
+
+    <div class="large-parallax-case">
+      <h4 class="capability-case-label">Case 1</h4>
+      <div class="large-parallax-grid">
+        <figure class="large-parallax-item large-parallax-input">
+          <figcaption class="comparison-label">Input</figcaption>
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Key%20Capabilities/Large%20parallax%20video%20rerendering/case_1_input.mp4" type="video/mp4">
+          </video>
+        </figure>
+
+        <figure class="large-parallax-item large-parallax-output">
+          <figcaption class="comparison-label">Ours</figcaption>
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Key%20Capabilities/Large%20parallax%20video%20rerendering/case_1_output.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+    </div>
+
+    <div class="large-parallax-case">
+      <h4 class="capability-case-label">Case 2</h4>
+      <div class="large-parallax-grid">
+        <figure class="large-parallax-item large-parallax-input">
+          <figcaption class="comparison-label">Input</figcaption>
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Key%20Capabilities/Large%20parallax%20video%20rerendering/case_2_input.mp4" type="video/mp4">
+          </video>
+        </figure>
+
+        <figure class="large-parallax-item large-parallax-output">
+          <figcaption class="comparison-label">Ours</figcaption>
+          <video controls muted loop playsinline preload="none">
+            <source src="./ours/videos/Key%20Capabilities/Large%20parallax%20video%20rerendering/case_2_output.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reconstruction" class="section capabilities-section capability-detail" aria-labelledby="reconstruction-title">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h3 id="reconstruction-title" class="title is-4">Geometry-Faithful Outputs for 3DGS Reconstruction</h3>
+    </div>
+
+    <div class="reconstruction-case">
+      <h4 class="capability-case-label">Case 1</h4>
+
+      <figure class="reconstruction-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <div class="reconstruction-grid">
+        <div class="reconstruction-corner" aria-hidden="true"></div>
+        <div class="reconstruction-column-label">Timestep 1</div>
+        <div class="reconstruction-column-label">Timestep 2</div>
+        <div class="reconstruction-column-label">Timestep 3</div>
+
+        <div class="reconstruction-row-label">Rendered RGB</div>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/rgb_timestep_1.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/rgb_timestep_2.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/rgb_timestep_3.mp4" type="video/mp4">
+        </video>
+
+        <div class="reconstruction-row-label">Rendered Depth</div>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/depth_timestep_1.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/depth_timestep_2.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case%201/depth_timestep_3.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="reconstruction-case">
+      <h4 class="capability-case-label">Case 2</h4>
+
+      <figure class="reconstruction-input">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <div class="reconstruction-grid">
+        <div class="reconstruction-corner" aria-hidden="true"></div>
+        <div class="reconstruction-column-label">Timestep 1</div>
+        <div class="reconstruction-column-label">Timestep 2</div>
+        <div class="reconstruction-column-label">Timestep 3</div>
+
+        <div class="reconstruction-row-label">Rendered RGB</div>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/rgb_timestep_1.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/rgb_timestep_2.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/rgb_timestep_3.mp4" type="video/mp4">
+        </video>
+
+        <div class="reconstruction-row-label">Rendered Depth</div>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/depth_timestep_1.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/depth_timestep_2.mp4" type="video/mp4">
+        </video>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Key%20Capabilities/3DGS%20reconstruction/Case2/depth_timestep_3.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ablations" class="section ablation-section" aria-labelledby="ablations-title">
+  <div class="container is-fluid ablation-container">
+    <div class="section-heading has-text-centered">
+      <span class="section-eyebrow">Component analysis</span>
+      <h2 id="ablations-title" class="title is-3">Ablation Studies</h2>
+      <p>Inspect how each component contributes to visual quality, consistency, and geometric fidelity.</p>
+      <h3 class="title is-4">Noise Monitor</h3>
+    </div>
+
+    <h4 class="capability-case-label ablation-case-label">Case 1</h4>
+    <div class="ablation-grid">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/noise%20monitor/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Noise Monitor</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/noise%20monitor/without.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">w/ Noise Monitor</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/noise%20monitor/with.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+
+    <h4 class="capability-case-label ablation-case-label">Case 2</h4>
+    <div class="ablation-grid">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/noise%20monitor/input_2.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Noise Monitor</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/noise%20monitor/without_2.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">w/ Noise Monitor</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/noise%20monitor/with_2.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<section id="depth-completion" class="section video-depth-ablation-section ablation-detail" aria-labelledby="depth-completion-title">
+  <div class="container is-fluid ablation-container">
+    <div class="has-text-centered">
+      <h3 id="depth-completion-title" class="title is-4">Video Depth Completion</h3>
+    </div>
+
+    <h4 class="capability-case-label ablation-case-label">Case 1</h4>
+    <div class="ablation-grid">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/video%20depth%20completion/Case%201/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Video Depth Completion</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/video%20depth%20completion/Case%201/without.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">w/ Video Depth Completion</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/video%20depth%20completion/Case%201/with.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+
+    <h4 class="capability-case-label ablation-case-label">Case 2</h4>
+    <div class="ablation-grid">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/video%20depth%20completion/Case%202/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Video Depth Completion</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/video%20depth%20completion/Case%202/without.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">w/ Video Depth Completion</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/video%20depth%20completion/Case%202/with.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="geometry-refinement" class="section geometry-refinement-ablation-section ablation-detail" aria-labelledby="geometry-refinement-title">
+  <div class="container is-fluid ablation-container">
+    <div class="has-text-centered">
+      <h3 id="geometry-refinement-title" class="title is-4">Geometry-Aware Refinement</h3>
+    </div>
+
+    <h4 class="capability-case-label ablation-case-label">Case 1</h4>
+    <div class="ablation-grid">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/geometry-aware%20refinement/Case1/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Geometry-Aware Refinement</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/geometry-aware%20refinement/Case1/without.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">w/ Geometry-Aware Refinement</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/geometry-aware%20refinement/Case1/with.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+
+    <h4 class="capability-case-label ablation-case-label">Case 2</h4>
+    <div class="ablation-grid">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">Input</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/geometry-aware%20refinement/Case2/input.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Geometry-Aware Refinement</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/geometry-aware%20refinement/Case2/without.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">w/ Geometry-Aware Refinement</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/geometry-aware%20refinement/Case2/with.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="dual-stream" class="section dual-stream-ablation-section ablation-detail" aria-labelledby="dual-stream-title">
+  <div class="container is-fluid ablation-container">
+    <div class="has-text-centered">
+      <h3 id="dual-stream-title" class="title is-4">Dual-Stream Warping</h3>
+    </div>
+
+    <div class="ablation-grid ablation-grid-equal">
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Appearance Stream Warping</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/Dual%20Stream%20Warping/without%20appearance%20stream%20warping.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item">
+        <figcaption class="comparison-label">w/o Geometry Stream Warping</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/Dual%20Stream%20Warping/without%20geometry%20stream%20warping.mp4" type="video/mp4">
+        </video>
+      </figure>
+
+      <figure class="ablation-item ablation-item-with">
+        <figcaption class="comparison-label">Dual-Stream Warping</figcaption>
+        <video controls muted loop playsinline preload="none">
+          <source src="./ours/videos/Ablation_studies/Dual%20Stream%20Warping/dual%20stream%20warping.mp4" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+  <span aria-hidden="true">↑</span>
+</button>
+
+<footer class="site-footer">
+  <p>Anonymous project page · Built for focused research exploration</p>
+</footer>
+
+</body>
+</html>
